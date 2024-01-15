@@ -1,0 +1,439 @@
+<!doctype html>
+<html id="html" class="">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="./src/dist/output.css" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200;300;400;500;600;700&display=swap"
+            rel="stylesheet">
+
+
+    </head>
+
+    <body
+        class="bg-cLVeryLightGrayishBlue relative font-normal text-sm dark:bg-cDVeryDarkBlue font-josesan flex justify-center "
+        id="body">
+        <img id="mainimage" src="./src/images/bg-mobile-light.jpg" class=" min-[565px]:hidden w-full h-[200px]" />
+        <img id="desktopmainimage" src="./src/images/bg-desktop-light.jpg"
+            class="hidden min-[565px]:block w-full h-[200px]" />
+
+        <section
+            class="z-10 px-4 top-8 absolute w-full dark:text-cDLightGrayishBlue text-cDVeryDarkBlue min-[565px]:w-[492px]">
+            <div class="flex justify-between mb-9">
+                <span class="font-bold text-2xl tracking-[8px] text-cLVeryLightGray ">TODO</span>
+
+                <img id="modetoggle" src="./src/images/icon-moon.svg" onclick="changeMode()"
+                    class="w-5 h-5 self-center">
+
+            </div>
+            <div onclick="addTaskModal()"
+                class="flex dark:bg-cDVeryDarkDesaturatedBlue bg-cLVeryLightGray h-12 px-2 items-center mb-4 rounded-lg">
+                <span
+                    class="dark:border-cLVeryDarkGrayishBlue border-cLVeryLightGrayishBlue border-2 rounded-full   w-6 h-6 flex justify-center items-center mr-2">
+
+                </span>
+                <span>Create a new todo...</span>
+            </div>
+
+
+            <div id="taskList" class="font-normal">
+
+            </div>
+            <div
+                class="rounded-b-lg flex bg-cLVeryLightGray justify-between h-10 px-2 items-center dark:bg-cDVeryDarkDesaturatedBlue">
+                <span id="uncompletedCount">8 item(s) left</span>
+                <span id="sortAll" onclick="loadTasks('All')" class="min-[565px]:block hidden">
+                    All
+                </span>
+                <span class="sortActive" onclick="loadTasks('Active')" class="min-[565px]:block hidden">Active</span>
+                <span id="sortCompleted" onclick="loadTasks('Completed')"
+                    class="min-[565px]:block hidden">Completed</span>
+                <span onclick="clearAll()">Clear Completed</span>
+            </div>
+
+
+            <div
+                class="rounded-t-lg  rounded-b-lg flex bg-cLVeryLightGray justify-around h-10 px-2 items-center mt-4  dark:bg-cDVeryDarkDesaturatedBlue min-[565px]:hidden">
+                <span id="sortAll" onclick="loadTasks('All')">
+                    All
+                </span>
+                <span id="sortActive" onclick="loadTasks('Active')">Active</span>
+                <span id="sortCompleted" onclick="loadTasks('Completed')">Completed</span>
+
+            </div>
+
+            <span class=" block mt-3 text-center  pt-6 mb-12">
+                Drag and drop to reorder List
+            </span>
+        </section>
+
+        <div id="myOverlay" onclick="closeAddDialog()"
+            class="overlay  bg-[#386bdf73] text-center pt-[124px] absolute top-0 left-0 right-0 h-screen z-30 px-4 hidden justify-center ">
+            <div class="max-w-[400px] w-[400px]">
+                <div class=" flex justify-end">
+                    <span class="text-2xl pl-1 pb-2 font-bold" onclick="closeAddDialog()" title="Close Overlay">x</span>
+                </div>
+                <div class="overlay-content">
+                    <form id="form" onclick="stopPropagation(event)">
+                        <input required type="text" placeholder="Got something to do?...." name="search"
+                            class="w-full h-12 rounded-lg px-2 " maxlength="33" id="input">
+                        <button type="submit" id="submit"
+                            class="bg-cLBrightBlue h-10 rounded-lg w-full mt-2 dark:bg-[#ba68ef] font-bold text-xl dark:text-cDLightGrayishBlue"
+                            onclick="addTask(event)">Add to list</i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script>
+
+            let tasks = []
+
+            let darkMode = false;
+
+
+
+
+            const loadTasks = (sortBy = "All") => {
+                let index = 1;
+                let uncompleted = 0;
+                let completed = 0;
+
+                const container = document.getElementById("taskList");
+                while (container.hasChildNodes()) {
+                    container.removeChild(container.firstChild);
+                }
+
+
+                tasks.forEach(function (item) {
+                    const mainDiv = document.createElement("div");
+
+                    mainDiv.setAttribute("class", "first:rounded-t-lg  last:rounded-b-lg flex bg-cLVeryLightGray justify-between h-12 px-2 items-center dark:bg-cDVeryDarkDesaturatedBlue")
+
+                    mainDiv.setAttribute("draggable", "true");
+
+                    mainDiv.setAttribute("ondragstart", "dragstartHandler(event," + index + ")")
+
+                    mainDiv.setAttribute("ondragover", "dragoverHandler(event)")
+
+                    mainDiv.setAttribute("ondrop", "dropHandler(event," + index + ")")
+
+
+                    const subDiv = document.createElement("div");
+
+                    subDiv.setAttribute("class", "flex")
+
+
+
+
+                    const span = document.createElement("span");
+
+                    span.setAttribute("class", "border-cLVeryLightGrayishBlue border-2 rounded-full  from-cLFrom to-cLto  w-5 h-5 flex justify-center items-center mr-2 dark:border-cLVeryDarkGrayishBlue ");
+
+
+
+                    span.setAttribute("onclick", "check(" + index + ")");
+
+                    span.setAttribute("id", "task" + index);
+
+
+
+                    const noteSpan = document.createElement("span")
+                    noteSpan.setAttribute("class", "capitalize")
+
+                    noteSpan.setAttribute("id", "tasknote" + index)
+                    noteSpan.appendChild(document.createTextNode(item[0]))
+
+                    const image = document.createElement("img");
+
+                    image.setAttribute("src", "./src/images/icon-check.svg")
+
+                    if (item[1] === "Completed") {
+                        span.classList.add("border-hidden");
+                        span.classList.add("bg-gradient-to-br");
+                        noteSpan.classList.add("line-through");
+                        noteSpan.classList.add("dark:text-cLVeryDarkGrayishBlue");
+                        noteSpan.classList.add("text-cLDarkGrayishBlue");
+                        noteSpan.classList.add("decoration-cLVeryDarkGrayishBlue");
+
+                        span.setAttribute("checked", "checked");
+                        span.appendChild(image);
+                        completed++
+                    }
+                    else {
+                        span.setAttribute("checked", "unchecked");
+                        uncompleted++;
+
+                    }
+
+
+
+                    const closeIcon = document.createElement("img");
+
+                    closeIcon.setAttribute("src", "./src/images/icon-cross.svg");
+
+                    closeIcon.setAttribute("class", "h-3");
+
+
+                    closeIcon.setAttribute("onclick", "deleteTask(" + index + ")")
+
+                    mainDiv.appendChild(closeIcon);
+
+
+
+
+                    subDiv.appendChild(noteSpan)
+
+                    subDiv.insertBefore(span, noteSpan);
+                    mainDiv.insertBefore(subDiv, closeIcon);
+                    console.log(mainDiv)
+
+
+
+                    if (sortBy === "All") {
+                        document.getElementById("taskList").appendChild(mainDiv);
+                        document.getElementById("sortAll").classList.add("text-cLBrightBlue")
+                        document.getElementById("sortActive").classList.remove("text-cLBrightBlue")
+                        document.getElementById("sortCompleted").classList.remove("text-cLBrightBlue")
+
+                        document.getElementById("taskList").appendChild(document.createElement("hr"));
+                    }
+                    else if (sortBy === "Active" & item[1] === "Active") {
+                        document.getElementById("taskList").appendChild(mainDiv);
+                        document.getElementById("sortActive").classList.add("text-cLBrightBlue")
+                        document.getElementById("sortAll").classList.remove("text-cLBrightBlue")
+                        document.getElementById("sortCompleted").classList.remove("text-cLBrightBlue")
+
+                        document.getElementById("taskList").appendChild(document.createElement("hr"));
+                    }
+                    else if (sortBy === "Completed" & item[1] === "Completed") {
+                        document.getElementById("taskList").appendChild(mainDiv);
+                        document.getElementById("sortAll").classList.remove("text-cLBrightBlue")
+                        document.getElementById("sortActive").classList.remove("text-cLBrightBlue")
+                        document.getElementById("sortCompleted").classList.add("text-cLBrightBlue")
+
+                        document.getElementById("taskList").appendChild(document.createElement("hr"));
+                    }
+
+
+                    index++;
+                })
+
+                // const lastDiv = document.createElement("div");
+                // lastDiv.setAttribute("class", "first:rounded-t-lg  last:rounded-b-lg flex bg-cLVeryLightGray justify-between h-10 px-2 items-center dark:bg-cDVeryDarkDesaturatedBlue");
+
+
+
+                document.getElementById("uncompletedCount").innerText = uncompleted + " item(s) left"
+
+                // lastDiv.appendChild(document.createElement("span")).appendChild(document.createTextNode(uncompleted + " item(s) left"));
+
+
+                // const clearAllSpan = document.createElement("span");
+
+                // clearAllSpan.setAttribute("onclick", "clearAll()");
+
+                // clearAllSpan.appendChild(document.createTextNode("Clear Completed"))
+
+
+                // lastDiv.appendChild(clearAllSpan)
+
+
+                // document.getElementById("taskList").appendChild(lastDiv);
+            }
+
+            document.body.onload = getTodo();
+
+            // document.body.onload = loadTasks();
+
+
+            const check = (no) => {
+                let state = document.getElementById("task" + no).getAttribute("checked");
+                console.log(state);
+                if (state === "unchecked") {
+                    document.getElementById("task" + no).classList.add("bg-gradient-to-br");
+                    document.getElementById("task" + no).classList.add("border-hidden");
+                    document.getElementById("task" + no).setAttribute("checked", "checked");
+                    document.getElementById("tasknote" + no).classList.add("line-through");
+
+                    console.log(no);
+
+                    console.log(tasks);
+                    // console.log(tasks[(no--)][0]);
+                    tasks[(no - 1)][1] = "Completed";
+
+                }
+                else {
+                    document.getElementById("task" + no).classList.remove("bg-gradient-to-br");
+                    document.getElementById("task" + no).classList.remove("border-hidden");
+                    document.getElementById("task" + no).setAttribute("checked", "unchecked")
+                    document.getElementById("tasknote" + no).classList.remove("line-through");
+
+                    tasks[(no - 1)][1] = "Active";
+
+                }
+
+                updateTodo()
+
+            }
+
+
+            const clearAll = () => {
+                console.log(tasks)
+
+                let index = 0;
+                newTasks = []
+                tasks.forEach(function (item) {
+
+                    if (item[1] !== "Completed") {
+                        newTasks.push([item[0], item[1]])
+                    }
+
+
+                });
+                tasks = newTasks;
+                updateTodo()
+                console.log(tasks)
+            }
+
+            const deleteTask = (no) => {
+                tasks.splice((no - 1), 1);
+
+                updateTodo();
+            }
+
+            const changeMode = () => {
+                if (darkMode === false) {
+                    document.getElementById("html").classList.add("dark");
+                    document.getElementById("mainimage").setAttribute("src", "./src/images/bg-mobile-dark.jpg");
+                    document.getElementById("desktopmainimage").setAttribute("src", "./src/images/bg-desktop-dark.jpg");
+
+                    document.getElementById("modetoggle").setAttribute("src", "./src/images/icon-sun.svg");
+                    darkMode = true;
+                }
+                else {
+                    document.getElementById("html").classList.remove("dark");
+                    document.getElementById("mainimage").setAttribute("src", "./src/images/bg-mobile-light.jpg");
+                    document.getElementById("desktopmainimage").setAttribute("src", "./src/images/bg-desktop-light.jpg");
+
+                    document.getElementById("modetoggle").setAttribute("src", "./src/images/icon-moon.svg");
+                    darkMode = false;
+                }
+
+            }
+
+
+            const addTaskModal = () => {
+                document.getElementById("myOverlay").classList.remove("hidden")
+                document.getElementById("myOverlay").classList.add("flex")
+                document.getElementById("body").classList.add("overflow-hidden")
+                window.scrollTo(0, 0)
+
+
+
+            }
+
+            const addTask = (event) => {
+                event.preventDefault();
+                const newTask = document.getElementById("input").value
+                if (newTask != "") {
+                    tasks.push([newTask, "Active"])
+                    console.log(tasks)
+                    updateTodo()
+                    closeAddDialog()
+                    document.getElementById("input").value = ""
+
+                }
+
+
+            }
+            const dragstartHandler = (ev, index) => {
+                index--;
+                console.log("dragging" + index)
+                // Add the target element's id to the data transfer object
+                ev.dataTransfer.setData("todo/index", index);
+                ev.dataTransfer.effectAllowed = "move";
+            }
+
+
+            const dragoverHandler = (ev) => {
+                let isTodo = ev.dataTransfer.types.includes("todo/index");
+                console.log(isTodo)
+                if (isTodo) {
+                    console.log("yes");
+                    ev.preventDefault();
+                    ev.dataTransfer.dropEffect = "move";
+                };
+
+            }
+
+            const dropHandler = (ev, no) => {
+                ev.preventDefault();
+                no--;
+
+
+                const transferIndex = ev.dataTransfer.getData("todo/index");
+                console.log(tasks)
+                let moveto = tasks[no];
+                console.log("moveto" + moveto)
+
+                tasks[no] = tasks[transferIndex];
+                console.log(tasks[no]);
+                console.log(tasks[transferIndex]);
+
+
+                tasks[transferIndex] = moveto;
+                console.log(tasks)
+
+                updateTodo()
+
+            }
+
+            function getTodo() {
+                if (localStorage.getItem("ToDoList")) {
+
+                    taskstr = localStorage.getItem("ToDoList")
+
+
+                    // let str = JSON.stringify(taskstr);
+                    // console.log(str);
+
+                    try {
+                        tasks = JSON.parse(taskstr);
+                    } catch (ex) {
+                        console.error(ex)
+                    }
+                }
+                else {
+                    tasks = []
+                }
+
+                loadTasks();
+
+            }
+
+            function updateTodo() {
+                let str = JSON.stringify(tasks);
+                localStorage.setItem("ToDoList", str);
+
+                loadTasks();
+            }
+
+            const stopPropagation = (e) => {
+                e.stopPropagation()
+            }
+
+            const closeAddDialog = () => {
+                document.getElementById("myOverlay").classList.add("hidden")
+                document.getElementById("myOverlay").classList.remove("flex")
+                document.getElementById("body").classList.remove("overflow-hidden")
+
+
+            }
+        </script>
+    </body>
+
+</html>
