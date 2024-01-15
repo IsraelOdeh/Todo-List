@@ -189,7 +189,6 @@
 
                     subDiv.insertBefore(span, noteSpan);
                     mainDiv.insertBefore(subDiv, closeIcon);
-                    console.log(mainDiv)
 
 
 
@@ -243,47 +242,26 @@
                     index++;
                 })
 
-                // const lastDiv = document.createElement("div");
-                // lastDiv.setAttribute("class", "first:rounded-t-lg  last:rounded-b-lg flex bg-cLVeryLightGray justify-between h-10 px-2 items-center dark:bg-cDVeryDarkDesaturatedBlue");
 
 
 
                 document.getElementById("uncompletedCount").innerText = uncompleted + " item(s) left"
 
-                // lastDiv.appendChild(document.createElement("span")).appendChild(document.createTextNode(uncompleted + " item(s) left"));
 
-
-                // const clearAllSpan = document.createElement("span");
-
-                // clearAllSpan.setAttribute("onclick", "clearAll()");
-
-                // clearAllSpan.appendChild(document.createTextNode("Clear Completed"))
-
-
-                // lastDiv.appendChild(clearAllSpan)
-
-
-                // document.getElementById("taskList").appendChild(lastDiv);
             }
 
             document.body.onload = getTodo();
 
-            // document.body.onload = loadTasks();
+
 
 
             const check = (no) => {
                 let state = document.getElementById("task" + no).getAttribute("checked");
-                console.log(state);
                 if (state === "unchecked") {
                     document.getElementById("task" + no).classList.add("bg-gradient-to-br");
                     document.getElementById("task" + no).classList.add("border-hidden");
                     document.getElementById("task" + no).setAttribute("checked", "checked");
                     document.getElementById("tasknote" + no).classList.add("line-through");
-
-                    console.log(no);
-
-                    console.log(tasks);
-                    // console.log(tasks[(no--)][0]);
                     tasks[(no - 1)][1] = "Completed";
 
                 }
@@ -303,7 +281,7 @@
 
 
             const clearAll = () => {
-                console.log(tasks)
+
 
                 let index = 0;
                 newTasks = []
@@ -317,7 +295,7 @@
                 });
                 tasks = newTasks;
                 updateTodo()
-                console.log(tasks)
+
             }
 
             const deleteTask = (no) => {
@@ -362,7 +340,7 @@
                 const newTask = document.getElementById("input").value
                 if (newTask != "") {
                     tasks.push([newTask, "Active"])
-                    console.log(tasks)
+
                     updateTodo()
                     closeAddDialog()
                     document.getElementById("input").value = ""
@@ -373,7 +351,7 @@
             }
             const dragstartHandler = (ev, index) => {
                 index--;
-                console.log("dragging" + index)
+
                 // Add the target element's id to the data transfer object
                 ev.dataTransfer.setData("todo/index", index);
                 ev.dataTransfer.effectAllowed = "move";
@@ -382,9 +360,9 @@
 
             const dragoverHandler = (ev) => {
                 let isTodo = ev.dataTransfer.types.includes("todo/index");
-                console.log(isTodo)
+
                 if (isTodo) {
-                    console.log("yes");
+
                     ev.preventDefault();
                     ev.dataTransfer.dropEffect = "move";
                 };
@@ -397,17 +375,15 @@
 
 
                 const transferIndex = ev.dataTransfer.getData("todo/index");
-                console.log(tasks)
+
                 let moveto = tasks[no];
-                console.log("moveto" + moveto)
+
 
                 tasks[no] = tasks[transferIndex];
-                console.log(tasks[no]);
-                console.log(tasks[transferIndex]);
 
 
                 tasks[transferIndex] = moveto;
-                console.log(tasks)
+
 
                 updateTodo()
 
@@ -419,13 +395,11 @@
                     taskstr = localStorage.getItem("ToDoList")
 
 
-                    // let str = JSON.stringify(taskstr);
-                    // console.log(str);
 
                     try {
                         tasks = JSON.parse(taskstr);
                     } catch (ex) {
-                        console.error(ex)
+
                     }
                 }
                 else {
