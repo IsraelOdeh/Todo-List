@@ -45,11 +45,11 @@
             <div
                 class="rounded-b-lg flex bg-cLVeryLightGray justify-between h-10 px-2 items-center dark:bg-cDVeryDarkDesaturatedBlue">
                 <span id="uncompletedCount">8 item(s) left</span>
-                <span id="sortAll" onclick="loadTasks('All')" class="min-[565px]:block hidden">
+                <span id="sortAll1" onclick="loadTasks('All')" class="min-[565px]:block hidden">
                     All
                 </span>
-                <span class="sortActive" onclick="loadTasks('Active')" class="min-[565px]:block hidden">Active</span>
-                <span id="sortCompleted" onclick="loadTasks('Completed')"
+                <span id="sortActive1" onclick="loadTasks('Active')" class="min-[565px]:block hidden">Active</span>
+                <span id="sortCompleted1" onclick="loadTasks('Completed')"
                     class="min-[565px]:block hidden">Completed</span>
                 <span onclick="clearAll()">Clear Completed</span>
             </div>
@@ -57,11 +57,11 @@
 
             <div
                 class="rounded-t-lg  rounded-b-lg flex bg-cLVeryLightGray justify-around h-10 px-2 items-center mt-4  dark:bg-cDVeryDarkDesaturatedBlue min-[565px]:hidden">
-                <span id="sortAll" onclick="loadTasks('All')">
+                <span id="sortAll2" onclick="loadTasks('All')">
                     All
                 </span>
-                <span id="sortActive" onclick="loadTasks('Active')">Active</span>
-                <span id="sortCompleted" onclick="loadTasks('Completed')">Completed</span>
+                <span id="sortActive2" onclick="loadTasks('Active')">Active</span>
+                <span id="sortCompleted2" onclick="loadTasks('Completed')">Completed</span>
 
             </div>
 
@@ -195,25 +195,46 @@
 
                     if (sortBy === "All") {
                         document.getElementById("taskList").appendChild(mainDiv);
-                        document.getElementById("sortAll").classList.add("text-cLBrightBlue")
-                        document.getElementById("sortActive").classList.remove("text-cLBrightBlue")
-                        document.getElementById("sortCompleted").classList.remove("text-cLBrightBlue")
+                        document.getElementById("sortAll1").classList.add("text-cLBrightBlue")
+                        document.getElementById("sortAll2").classList.add("text-cLBrightBlue")
+
+                        document.getElementById("sortActive1").classList.remove("text-cLBrightBlue")
+                        document.getElementById("sortActive2").classList.remove("text-cLBrightBlue")
+
+                        document.getElementById("sortCompleted1").classList.remove("text-cLBrightBlue")
+                        document.getElementById("sortCompleted2").classList.remove("text-cLBrightBlue")
+
 
                         document.getElementById("taskList").appendChild(document.createElement("hr"));
                     }
                     else if (sortBy === "Active" & item[1] === "Active") {
                         document.getElementById("taskList").appendChild(mainDiv);
-                        document.getElementById("sortActive").classList.add("text-cLBrightBlue")
-                        document.getElementById("sortAll").classList.remove("text-cLBrightBlue")
-                        document.getElementById("sortCompleted").classList.remove("text-cLBrightBlue")
+
+                        document.getElementById("sortActive1").classList.add("text-cLBrightBlue")
+                        document.getElementById("sortActive2").classList.add("text-cLBrightBlue")
+
+                        document.getElementById("sortAll1").classList.remove("text-cLBrightBlue")
+                        document.getElementById("sortAll2").classList.remove("text-cLBrightBlue")
+
+                        document.getElementById("sortCompleted1").classList.remove("text-cLBrightBlue")
+                        document.getElementById("sortCompleted2").classList.remove("text-cLBrightBlue")
 
                         document.getElementById("taskList").appendChild(document.createElement("hr"));
                     }
                     else if (sortBy === "Completed" & item[1] === "Completed") {
                         document.getElementById("taskList").appendChild(mainDiv);
-                        document.getElementById("sortAll").classList.remove("text-cLBrightBlue")
-                        document.getElementById("sortActive").classList.remove("text-cLBrightBlue")
-                        document.getElementById("sortCompleted").classList.add("text-cLBrightBlue")
+
+                        document.getElementById("sortAll1").classList.remove("text-cLBrightBlue")
+                        document.getElementById("sortAll2").classList.remove("text-cLBrightBlue")
+
+
+                        document.getElementById("sortActive1").classList.remove("text-cLBrightBlue")
+                        document.getElementById("sortActive2").classList.remove("text-cLBrightBlue")
+
+
+                        document.getElementById("sortCompleted1").classList.add("text-cLBrightBlue")
+                        document.getElementById("sortCompleted2").classList.add("text-cLBrightBlue")
+
 
                         document.getElementById("taskList").appendChild(document.createElement("hr"));
                     }
