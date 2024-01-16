@@ -1,5 +1,5 @@
 <!doctype html>
-<html id="html" class="">
+<html id="html" class=" ">
 
     <head>
         <meta charset="UTF-8">
@@ -14,14 +14,14 @@
     </head>
 
     <body
-        class="bg-cLVeryLightGrayishBlue relative font-normal text-sm dark:bg-cDVeryDarkBlue font-josesan flex justify-center "
+        class="bg-cLVeryLightGrayishBlue relative font-normal text-sm dark:bg-cDVeryDarkBlue font-josesan flex justify-center   transition duration-1000"
         id="body">
         <img id="mainimage" src="./src/images/bg-mobile-light.jpg" class=" min-[565px]:hidden w-full h-[200px]" />
         <img id="desktopmainimage" src="./src/images/bg-desktop-light.jpg"
             class="hidden min-[565px]:block w-full h-[200px]" />
 
         <section
-            class="z-10 px-4 top-8 absolute w-full dark:text-cDLightGrayishBlue text-cDVeryDarkBlue min-[565px]:w-[492px]">
+            class=" z-10 px-4 top-8 absolute w-full dark:text-cDLightGrayishBlue text-cDVeryDarkBlue min-[565px]:w-[492px]  transition duration-1000">
             <div class="flex justify-between mb-9">
                 <span class="font-bold text-2xl tracking-[8px] text-cLVeryLightGray ">TODO</span>
 
@@ -30,9 +30,9 @@
 
             </div>
             <div onclick="addTaskModal()"
-                class="flex dark:bg-cDVeryDarkDesaturatedBlue bg-cLVeryLightGray h-12 px-2 items-center mb-4 rounded-lg">
+                class="flex dark:bg-cDVeryDarkDesaturatedBlue bg-cLVeryLightGray h-12 px-2 items-center mb-4 rounded-lg  transition duration-1000">
                 <span
-                    class="dark:border-cLVeryDarkGrayishBlue border-cLVeryLightGrayishBlue border-2 rounded-full   w-6 h-6 flex justify-center items-center mr-2">
+                    class="dark:border-cLVeryDarkGrayishBlue border-cLVeryLightGrayishBlue border-2 rounded-full   w-6 h-6 flex justify-center items-center mr-2  transition duration-1000">
 
                 </span>
                 <span>Create a new todo...</span>
@@ -43,20 +43,21 @@
 
             </div>
             <div
-                class="rounded-b-lg flex bg-cLVeryLightGray justify-between h-10 px-2 items-center dark:bg-cDVeryDarkDesaturatedBlue">
+                class="rounded-b-lg flex bg-cLVeryLightGray justify-between h-10 px-2 items-center dark:bg-cDVeryDarkDesaturatedBlue  transition duration-1000">
                 <span id="uncompletedCount">8 item(s) left</span>
-                <span id="sortAll1" onclick="loadTasks('All')" class="min-[565px]:block hidden">
+                <span id="sortAll1" onclick="loadTasks('All')" class="min-[565px]:block hidden cursor-pointer">
                     All
                 </span>
-                <span id="sortActive1" onclick="loadTasks('Active')" class="min-[565px]:block hidden">Active</span>
+                <span id="sortActive1" onclick="loadTasks('Active')"
+                    class="min-[565px]:block hidden cursor-pointer">Active</span>
                 <span id="sortCompleted1" onclick="loadTasks('Completed')"
-                    class="min-[565px]:block hidden">Completed</span>
-                <span onclick="clearAll()">Clear Completed</span>
+                    class="min-[565px]:block hidden cursor-pointer">Completed</span>
+                <span onclick="clearAll()" class="cursor-pointer">Clear Completed</span>
             </div>
 
 
             <div
-                class="rounded-t-lg  rounded-b-lg flex bg-cLVeryLightGray justify-around h-10 px-2 items-center mt-4  dark:bg-cDVeryDarkDesaturatedBlue min-[565px]:hidden">
+                class="rounded-t-lg  rounded-b-lg flex bg-cLVeryLightGray justify-around h-10 px-2 items-center mt-4  dark:bg-cDVeryDarkDesaturatedBlue min-[565px]:hidden  transition duration-1000">
                 <span id="sortAll2" onclick="loadTasks('All')">
                     All
                 </span>
@@ -81,7 +82,7 @@
                         <input required type="text" placeholder="Got something to do?...." name="search"
                             class="w-full h-12 rounded-lg px-2 " maxlength="33" id="input">
                         <button type="submit" id="submit"
-                            class="bg-cLBrightBlue h-10 rounded-lg w-full mt-2 dark:bg-[#ba68ef] font-bold text-xl dark:text-cDLightGrayishBlue"
+                            class="bg-cLBrightBlue h-10 rounded-lg w-full mt-2 dark:bg-[#ba68ef] font-bold text-xl dark:text-cDLightGrayishBlue  transition duration-1000"
                             onclick="addTask(event)">Add to list</i></button>
                     </form>
                 </div>
@@ -111,7 +112,7 @@
                 tasks.forEach(function (item) {
                     const mainDiv = document.createElement("div");
 
-                    mainDiv.setAttribute("class", "first:rounded-t-lg  last:rounded-b-lg flex bg-cLVeryLightGray justify-between h-12 px-2 items-center dark:bg-cDVeryDarkDesaturatedBlue")
+                    mainDiv.setAttribute("class", "first:rounded-t-lg  last:rounded-b-lg flex bg-cLVeryLightGray justify-between h-12 px-2 items-center dark:bg-cDVeryDarkDesaturatedBlue  transition duration-1000")
 
                     mainDiv.setAttribute("draggable", "true");
 
@@ -131,7 +132,7 @@
 
                     const span = document.createElement("span");
 
-                    span.setAttribute("class", "border-cLVeryLightGrayishBlue border-2 rounded-full  from-cLFrom to-cLto  w-5 h-5 flex justify-center items-center mr-2 dark:border-cLVeryDarkGrayishBlue ");
+                    span.setAttribute("class", "border-cLVeryLightGrayishBlue border-2 rounded-full  from-cLFrom to-cLto  w-5 h-5 flex justify-center items-center mr-2 dark:border-cLVeryDarkGrayishBlue  cursor-pointer  transition duration-1000");
 
 
 
@@ -156,6 +157,11 @@
                         span.classList.add("bg-gradient-to-br");
                         noteSpan.classList.add("line-through");
                         noteSpan.classList.add("dark:text-cLVeryDarkGrayishBlue");
+                        noteSpan.classList.add("transition");
+                        noteSpan.classList.add("duration-1000");
+
+
+
                         noteSpan.classList.add("text-cLDarkGrayishBlue");
                         noteSpan.classList.add("decoration-cLVeryDarkGrayishBlue");
 
@@ -175,7 +181,7 @@
 
                     closeIcon.setAttribute("src", "./src/images/icon-cross.svg");
 
-                    closeIcon.setAttribute("class", "h-3");
+                    closeIcon.setAttribute("class", "h-3 cursor-pointer");
 
 
                     closeIcon.setAttribute("onclick", "deleteTask(" + index + ")")
@@ -354,6 +360,17 @@
 
                 // Add the target element's id to the data transfer object
                 ev.dataTransfer.setData("todo/index", index);
+
+
+
+                event.target.classList.add("!bg-cLVeryLightGrayishBlue");
+                event.target.classList.add("dark:!bg-cDVeryDarkBlue");
+
+                event.target.classList.add("!text-black");
+                event.target.classList.add("dark:!text-white");
+
+
+
                 ev.dataTransfer.effectAllowed = "move";
             }
 
@@ -428,6 +445,17 @@
 
 
             }
+
+            document.addEventListener("dragend", (event) => {
+
+
+                event.target.classList.remove("!bg-cLVeryLightGrayishBlue");
+                event.target.classList.remove("dark:!bg-cDVeryDarkBlue");
+
+                event.target.classList.remove("!text-black");
+                event.target.classList.remove("dark:!text-white");
+
+            });
         </script>
     </body>
 
