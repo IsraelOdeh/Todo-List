@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="./src/dist/output.css" rel="stylesheet">
+        <link rel="icon" type="image/x-icon" href="./src/images/favicon-32x32.png">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200;300;400;500;600;700&display=swap"
@@ -212,9 +213,12 @@
 
                         document.getElementById("taskList").appendChild(document.createElement("hr"));
                     }
-                    else if (sortBy === "Active" & item[1] === "Active") {
-                        document.getElementById("taskList").appendChild(mainDiv);
+                    else if (sortBy === "Active") {
+                        if (item[1] === "Active") {
+                            document.getElementById("taskList").appendChild(mainDiv);
+                            document.getElementById("taskList").appendChild(document.createElement("hr"));
 
+                        }
                         document.getElementById("sortActive1").classList.add("text-cLBrightBlue")
                         document.getElementById("sortActive2").classList.add("text-cLBrightBlue")
 
@@ -223,12 +227,13 @@
 
                         document.getElementById("sortCompleted1").classList.remove("text-cLBrightBlue")
                         document.getElementById("sortCompleted2").classList.remove("text-cLBrightBlue")
-
-                        document.getElementById("taskList").appendChild(document.createElement("hr"));
                     }
-                    else if (sortBy === "Completed" & item[1] === "Completed") {
-                        document.getElementById("taskList").appendChild(mainDiv);
+                    else if (sortBy === "Completed") {
+                        if (item[1] === "Completed") {
+                            document.getElementById("taskList").appendChild(mainDiv);
+                            document.getElementById("taskList").appendChild(document.createElement("hr"));
 
+                        }
                         document.getElementById("sortAll1").classList.remove("text-cLBrightBlue")
                         document.getElementById("sortAll2").classList.remove("text-cLBrightBlue")
 
@@ -239,9 +244,6 @@
 
                         document.getElementById("sortCompleted1").classList.add("text-cLBrightBlue")
                         document.getElementById("sortCompleted2").classList.add("text-cLBrightBlue")
-
-
-                        document.getElementById("taskList").appendChild(document.createElement("hr"));
                     }
 
 

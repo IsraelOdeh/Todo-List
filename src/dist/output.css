@@ -1905,9 +1905,9 @@ video {
   border-color: hsl(236 33% 92% / var(--tw-border-opacity));
 }
 
-.\!bg-black {
+.\!bg-cLVeryLightGrayishBlue {
   --tw-bg-opacity: 1 !important;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity)) !important;
+  background-color: hsl(236 33% 92% / var(--tw-bg-opacity)) !important;
 }
 
 .bg-\[\#386bdf73\] {
@@ -1932,11 +1932,6 @@ video {
 .bg-cLVeryLightGrayishBlue {
   --tw-bg-opacity: 1;
   background-color: hsl(236 33% 92% / var(--tw-bg-opacity));
-}
-
-.\!bg-cLVeryLightGrayishBlue {
-  --tw-bg-opacity: 1 !important;
-  background-color: hsl(236 33% 92% / var(--tw-bg-opacity)) !important;
 }
 
 .bg-gradient-to-br {
@@ -2244,6 +2239,11 @@ video {
   letter-spacing: 8px;
 }
 
+.\!text-black {
+  --tw-text-opacity: 1 !important;
+  color: rgb(0 0 0 / var(--tw-text-opacity)) !important;
+}
+
 .text-\[\#336699\]\/\[\.35\] {
   color: rgb(51 102 153 / .35);
 }
@@ -2271,16 +2271,6 @@ video {
 .text-cLVeryLightGray {
   --tw-text-opacity: 1;
   color: hsl(0 0% 98% / var(--tw-text-opacity));
-}
-
-.text-black {
-  --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
-}
-
-.\!text-black {
-  --tw-text-opacity: 1 !important;
-  color: rgb(0 0 0 / var(--tw-text-opacity)) !important;
 }
 
 .underline {
@@ -2689,6 +2679,11 @@ video {
   border-color: hsl(235 19% 35% / var(--tw-border-opacity));
 }
 
+:is(.dark .dark\:\!bg-cDVeryDarkBlue) {
+  --tw-bg-opacity: 1 !important;
+  background-color: hsl(235 21% 11% / var(--tw-bg-opacity)) !important;
+}
+
 :is(.dark .dark\:bg-\[\#ba68ef\]) {
   --tw-bg-opacity: 1;
   background-color: rgb(186 104 239 / var(--tw-bg-opacity));
@@ -2704,9 +2699,9 @@ video {
   background-color: hsl(235 24% 19% / var(--tw-bg-opacity));
 }
 
-:is(.dark .dark\:\!bg-cDVeryDarkBlue) {
-  --tw-bg-opacity: 1 !important;
-  background-color: hsl(235 21% 11% / var(--tw-bg-opacity)) !important;
+:is(.dark .dark\:\!text-white) {
+  --tw-text-opacity: 1 !important;
+  color: rgb(255 255 255 / var(--tw-text-opacity)) !important;
 }
 
 :is(.dark .dark\:text-cDLightGrayishBlue) {
@@ -2717,11 +2712,6 @@ video {
 :is(.dark .dark\:text-cLVeryDarkGrayishBlue) {
   --tw-text-opacity: 1;
   color: hsl(235 19% 35% / var(--tw-text-opacity));
-}
-
-:is(.dark .dark\:\!text-white) {
-  --tw-text-opacity: 1 !important;
-  color: rgb(255 255 255 / var(--tw-text-opacity)) !important;
 }
 
 @media (min-width: 565px) {
